@@ -1,6 +1,6 @@
 {
   "name": "vue-draggable-resizable-gorky",
-  "version": "2.4.8",
+  "version": "2.4.9",
   "author": "CC Team",
   "main": "dist/VueDraggableResizable.common.js",
   "unpkg": "dist/VueDraggableResizable.common.js",
@@ -13,7 +13,7 @@
     "build": "npm run build-bundle && npm run build-genline",
     "lint": "vue-cli-service lint",
     "build-bundle": "vue-cli-service build --target lib --name VueDraggableResizable ./src/index.js",
-    "build-genline":  "vue-cli-service build --target lib --dest ./dist/generate-lines --name generateLines ./src/generate-lines.js",
+    "build-genline": "vue-cli-service build --target lib --dest ./dist/generate-lines --name generateLines ./src/generate-lines.js",
     "unit": "cross-env BABEL_ENV=test mocha-webpack --webpack-config=webpack.test.js tests/unit/specs/**/*.js",
     "unit-watch": "cross-env BABEL_ENV=test mocha-webpack --watch --webpack-config=webpack.test.js tests/unit/specs/**/*.js",
     "feature": "cross-env BABEL_ENV=test node_modules/karma/bin/karma start tests/feature/karma.conf.js --single-run",
