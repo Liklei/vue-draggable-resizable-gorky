@@ -1,13 +1,13 @@
 {
   "name": "vue-draggable-resizable-gorky",
   "version": "2.4.8",
-  "author": "Auther",
+  "author": "CC Team",
   "main": "dist/VueDraggableResizable.common.js",
   "unpkg": "dist/VueDraggableResizable.common.js",
   "browser": {
     "./sfc": "src/vue-draggable-resizable.vue"
   },
-  "description": "Vue拖拽插件用于可调整大小和可拖动元素的组件并支持冲突检测与吸附对齐",
+  "description": "vue 拖拽插件支持吸附、间距线、间距数值",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "npm run build-bundle && npm run build-genline",
@@ -62,7 +62,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gorkys/vue-draggable-resizable-gorkys.git"
+    "url": "https://github.com/Liklei/vue-draggable-resizable-gorky.git"
   },
   "keywords": [
     "vue",

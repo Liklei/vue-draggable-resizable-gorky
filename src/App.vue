@@ -86,9 +86,10 @@ export default {
         mostCloseGapLines.gapVLine ? mostCloseGapLines.gapVLine.lineLength : Infinity
       )
       if (Number.isFinite(gapValue)) {
-        const ret = lineManager.getMatchedGaps(gapValue, allEls)
-        this.gapLines.gapHLine = ret.gapHLine.filter(line => !!line)
-        this.gapLines.gapVLine = ret.gapVLine.filter(line => !!line)
+        lineManager.getMatchedGaps(gapValue, allEls).then((ret) => {
+          this.gapLines.gapHLine = ret.gapHLine.filter(line => !!line)
+          this.gapLines.gapVLine = ret.gapVLine.filter(line => !!line)
+        })
       } else {
         this.gapLines.gapHLine = []
         this.gapLines.gapVLine = []

@@ -652,31 +652,37 @@ ActiveElMapLinesManager.prototype.getMostCloseGapLineOfEl = function (targetEl, 
  * }
  */
 ActiveElMapLinesManager.prototype.getMatchedGaps = function (gapValue, allEls, tolerance = 2) {
+  let timer = null
   // 计算最近的值
-  const walked = new WeakSet()
-  const ret = {
-    gapHLine: [],
-    gapVLine: []
-  }
-  console.log('log', ret)
-  allEls.forEach((el) => {
-    const curElLines = this.cachedActiveEls.get(el)
-    walked.add(el)
-    allEls.forEach(el => {
-      if (!walked.has(el)) {
-        const lines = curElLines.get(el)
-        const HLine = lines.gapLines.gapHLine[0]
-        const VLine = lines.gapLines.gapVLine[0]
-        if (HLine && Math.abs(HLine.lineLength - gapValue) < tolerance) {
-          ret.gapHLine.push(HLine)
-        }
-        if (VLine && Math.abs(VLine.lineLength - gapValue) < tolerance) {
-          ret.gapVLine.push(VLine)
-        }
+  return new Promise((resolve, reject) => {
+    if (timer) return
+    timer = setTimeout(() => {
+      const walked = new WeakSet()
+      const ret = {
+        gapHLine: [],
+        gapVLine: []
       }
-    })
+      allEls.forEach((el) => {
+        const curElLines = this.cachedActiveEls.get(el)
+        walked.add(el)
+        allEls.forEach(el => {
+          if (!walked.has(el)) {
+            const lines = curElLines.get(el)
+            const HLine = lines.gapLines.gapHLine[0]
+            const VLine = lines.gapLines.gapVLine[0]
+            if (HLine && Math.abs(HLine.lineLength - gapValue) < tolerance) {
+              ret.gapHLine.push(HLine)
+            }
+            if (VLine && Math.abs(VLine.lineLength - gapValue) < tolerance) {
+              ret.gapVLine.push(VLine)
+            }
+          }
+        })
+      })
+      clearTimeout(timer)
+      resolve(ret)
+    }, 100)
   })
-  return ret
 }
 
 /**
@@ -693,7 +699,6 @@ ActiveElMapLinesManager.prototype.computeGapLines = function (
    * @param {HTMLElement} theRelatedEl
    * @returns
   */
-  // TODO: computeGap
   const computeGap = (activeEl, theRelatedEl) => {
     if (!activeEl || !theRelatedEl) {
       return new ActiveElLineStore()
@@ -722,7 +727,6 @@ ActiveElMapLinesManager.prototype.computeGapLines = function (
       store.gapLines
     )
   }
-
   allEls.forEach((activeEl, outIndex) => {
     let loopCount = 1
     while (outIndex + loopCount < allEls.length) {
@@ -744,7 +748,7 @@ ActiveElMapLinesManager.prototype.computeLines = function (
   activeEl,
   theRelatedEl
 ) {
-  console.log('log', activeEl, theRelatedEl)
+  console.log('computeLines', activeEl, theRelatedEl)
   if (!activeEl || !theRelatedEl) {
     return new ActiveElLineStore()
   }
