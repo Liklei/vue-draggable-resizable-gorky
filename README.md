@@ -4,31 +4,20 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![npm](https://img.shields.io/npm/dt/vue-draggable-resizable.svg?style=flat-square)](https://www.npmjs.com/package/vue-draggable-resizable-gorkys)
 
-## 该fork版本修复的问题清单：
-* fix：增加右键菜单事件contextmenu 2021-08-10
-* fix：开启自动对齐后，元素依据中线对齐可能会超出父容器边界的问题 2021-07-02
-* fix：取消选中的行为优先绑定在父节点上 2021-06-22
-* fix：冲突检测回退后没有再次触发resizing事件的bug 2021-06-08
-
 ## 新增特征✨
 
+- 间距展示(新)
+
+## 说明
+
+> 1、组件基于[vue-draggable-resizable-gorkys](https://github.com/gorkys/vue-draggable-resizable-gorkys)进行二次开发,组件功能如下：
 - 辅助线(新)
 - 元素对齐(新)
 - 冲突检测
 - 吸附对齐
 - 默认样式优化
 
-> Q交流群：138146781
-
-## 说明
-
-> 说明：组件基于[vue-draggable-resizable](https://github.com/mauricius/vue-draggable-resizable)进行二次开发
-
-距离上[1.7版本](https://github.com/gorkys/vue-draggable-resizable)版本的修改已经过去快一年的时间了，原版组件在之前已经更新到了2.0版本。
-
-虽然之前适配过旧版组件，但是因为2.0版本原作者对代码进行了重构，原来修改的代码照搬是不可能的了。
-
-所以也就一直没有将**冲突检测**以及**吸附对齐**功能适配到2.0版本，最近正好有时间就适配一下。
+> 2、原始组件为[vue-draggable-resizable](https://github.com/mauricius/vue-draggable-resizable)
 
 ## 功能预览
 
@@ -143,18 +132,10 @@ export default {
 
 ```
 
-
-
-## 其它属性
-
-[英文版](https://github.com/mauricius/vue-draggable-resizable) | [中文版](./README_ZH.md)
-
-> 注意：英文版为官方原版，中文版为**google翻译版本**
-
 ## 安装使用
 
 ```bash
-$ npm install --save vue-draggable-resizable-gorkys
+$ npm install --save vue-draggable-resizable-gorky
 ```
 
 全局注册组件
@@ -162,10 +143,10 @@ $ npm install --save vue-draggable-resizable-gorkys
 ```javascript
 //main.js
 import Vue from 'vue'
-import vdr from 'vue-draggable-resizable-gorkys'
+import vdr from 'vue-draggable-resizable-gorky'
 
 // 导入默认样式
-import 'vue-draggable-resizable-gorkys/dist/VueDraggableResizable.css'
+import 'vue-draggable-resizable-gorky/dist/VueDraggableResizable.css'
 Vue.component('vdr', vdr)
 ```
 
@@ -194,8 +175,8 @@ Vue.component('vdr', vdr)
 </template>
 
 <script>
-import vdr from 'vue-draggable-resizable-gorkys'
-import 'vue-draggable-resizable-gorkys/dist/VueDraggableResizable.css'
+import vdr from 'vue-draggable-resizable-gorky'
+import 'vue-draggable-resizable-gorky/dist/VueDraggableResizable.css'
 export default {
   components: {vdr},
   data: function () {
