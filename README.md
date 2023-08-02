@@ -203,6 +203,9 @@ export default {
 </script>
 ```
 
+## 特别备注
+> 由于之前两个项目基本已经停止维护，欢迎将本项目fork与持续更新，不断完善本版本。
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
