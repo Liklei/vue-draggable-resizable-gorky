@@ -10,7 +10,7 @@
 - 支持返回对应的间距元素(新)
 - 间距元素的激活状态(新)
 
-## 说明
+## 组件演变
 
 > 1、组件基于[vue-draggable-resizable-gorkys](https://github.com/gorkys/vue-draggable-resizable-gorkys)进行二次开发,组件功能如下：
 - 辅助线(新)
@@ -204,6 +204,9 @@ export default {
 }
 </script>
 ```
+
+## 间距展示使用参考
+> App.vue中的使用方式，参数api后续更新
 
 ## 特别备注
 > 由于之前两个项目基本已经停止维护，欢迎将本项目fork与持续更新，不断完善本版本。
