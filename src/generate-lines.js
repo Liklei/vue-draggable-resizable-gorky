@@ -625,18 +625,21 @@ ActiveElMapLinesManager.prototype.getMostCloseGapLineOfEl = function (targetEl, 
     const curGapLines = targetElCachedLines.get(el).gapLines
     const curGap = {
       gapHLine: curGapLines.gapHLine[0],
-      gapVLine: curGapLines.gapVLine[0]
+      gapVLine: curGapLines.gapVLine[0],
+      gapHLineEl: el,
+      gapVLineEl: el
     }
     if (ret === null) {
       return curGap
     }
     if (curGap.gapHLine && (!ret.gapHLine || ret.gapHLine.lineLength > curGap.gapHLine.lineLength)) {
       ret.gapHLine = curGap.gapHLine
+      ret.gapHLineEl = curGap.gapHLineEl
     }
     if (curGap.gapVLine && (!ret.gapVLine || ret.gapVLine.lineLength > curGap.gapVLine.lineLength)) {
       ret.gapVLine = curGap.gapVLine
+      ret.gapVLineEl = curGap.gapVLineEl
     }
-    ret['gapEl'] = el
     return ret
   }, null)
 }
@@ -654,37 +657,29 @@ ActiveElMapLinesManager.prototype.getMostCloseGapLineOfEl = function (targetEl, 
  * }
  */
 ActiveElMapLinesManager.prototype.getMatchedGaps = function (gapValue, allEls, tolerance = 2) {
-  let timer = null
-  // 计算最近的值
-  return new Promise((resolve, reject) => {
-    if (timer) return
-    timer = setTimeout(() => {
-      const walked = new WeakSet()
-      const ret = {
-        gapHLine: [],
-        gapVLine: []
+  const walked = new WeakSet()
+  const ret = {
+    gapHLine: [],
+    gapVLine: []
+  }
+  allEls.forEach((el) => {
+    const curElLines = this.cachedActiveEls.get(el)
+    walked.add(el)
+    allEls.forEach(el => {
+      if (!walked.has(el)) {
+        const lines = curElLines.get(el)
+        const HLine = lines.gapLines.gapHLine[0]
+        const VLine = lines.gapLines.gapVLine[0]
+        if (HLine && Math.abs(HLine.lineLength - gapValue) < tolerance) {
+          ret.gapHLine.push(HLine)
+        }
+        if (VLine && Math.abs(VLine.lineLength - gapValue) < tolerance) {
+          ret.gapVLine.push(VLine)
+        }
       }
-      allEls.forEach((el) => {
-        const curElLines = this.cachedActiveEls.get(el)
-        walked.add(el)
-        allEls.forEach(el => {
-          if (!walked.has(el)) {
-            const lines = curElLines.get(el)
-            const HLine = lines.gapLines.gapHLine[0]
-            const VLine = lines.gapLines.gapVLine[0]
-            if (HLine && Math.abs(HLine.lineLength - gapValue) < tolerance) {
-              ret.gapHLine.push(HLine)
-            }
-            if (VLine && Math.abs(VLine.lineLength - gapValue) < tolerance) {
-              ret.gapVLine.push(VLine)
-            }
-          }
-        })
-      })
-      clearTimeout(timer)
-      resolve(ret)
-    }, 100)
+    })
   })
+  return ret
 }
 
 /**
@@ -750,7 +745,6 @@ ActiveElMapLinesManager.prototype.computeLines = function (
   activeEl,
   theRelatedEl
 ) {
-  console.log('computeLines', activeEl, theRelatedEl)
   if (!activeEl || !theRelatedEl) {
     return new ActiveElLineStore()
   }

@@ -81,15 +81,18 @@ export default {
       const allEls = [...document.getElementsByClassName('ruleEl')]
       lineManager.computeGapLines(allEls)
       const mostCloseGapLines = lineManager.getMostCloseGapLineOfEl(this.activeEl, allEls)
+      console.log(mostCloseGapLines)
       const gapValue = Math.min(
         mostCloseGapLines.gapHLine ? mostCloseGapLines.gapHLine.lineLength : Infinity,
         mostCloseGapLines.gapVLine ? mostCloseGapLines.gapVLine.lineLength : Infinity
       )
+      if (mostCloseGapLines.gapHLine) {
+        mostCloseGapLines.gapHLineEl.classList.add('el-hover')
+      }
       if (Number.isFinite(gapValue)) {
-        lineManager.getMatchedGaps(gapValue, allEls).then((ret) => {
-          this.gapLines.gapHLine = ret.gapHLine.filter(line => !!line)
-          this.gapLines.gapVLine = ret.gapVLine.filter(line => !!line)
-        })
+        const ret = lineManager.getMatchedGaps(gapValue, allEls)
+        this.gapLines.gapHLine = ret.gapHLine.filter(line => !!line)
+        this.gapLines.gapVLine = ret.gapVLine.filter(line => !!line)
       } else {
         this.gapLines.gapHLine = []
         this.gapLines.gapVLine = []
@@ -99,6 +102,10 @@ export default {
       this.activeEl = null
       this.gapLines.gapHLine = []
       this.gapLines.gapVLine = []
+      const allEls = [...document.getElementsByClassName('ruleEl')]
+      allEls.forEach((el) => {
+        el.classList.remove('el-hover')
+      })
     },
     onActivated (activeEl) {
       this.activeEl = activeEl
@@ -131,5 +138,8 @@ export default {
 
 .test3 {
   background-color: rgb(174, 213, 129);
+}
+.el-hover {
+  border: 2px solid #8b3dff;
 }
 </style>
