@@ -1,6 +1,6 @@
 {
   "name": "vue-draggable-resizable-gorky",
-  "version": "2.4.11",
+  "version": "2.4.12",
   "author": "CC Team",
   "main": "dist/VueDraggableResizable.common.js",
   "unpkg": "dist/VueDraggableResizable.common.js",
