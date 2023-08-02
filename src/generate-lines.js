@@ -613,6 +613,7 @@ function ActiveElMapLinesManager () {
  *  {
  *    gapHLine: Line
  *    gapVLine: Line
+ *    gapEl: Element
  *  }
  * }
  */
@@ -635,6 +636,7 @@ ActiveElMapLinesManager.prototype.getMostCloseGapLineOfEl = function (targetEl, 
     if (curGap.gapVLine && (!ret.gapVLine || ret.gapVLine.lineLength > curGap.gapVLine.lineLength)) {
       ret.gapVLine = curGap.gapVLine
     }
+    ret['gapEl'] = el
     return ret
   }, null)
 }
